@@ -1,0 +1,104 @@
+
+Transcript
+0:03 Welcome to this course on ChatGPT Prompt Engineering for Developers. 0:06 I'm thrilled to have with me Isa Fulford to
+0:09 teach this along with me. She is a member of
+0:13 the technical staff of OpenAl and had built
+0:15 the popular ChatGPT Retrieval plugin and a large 0:18 part of her work has been teaching people
+0:21 how to use LLM or Large Language Model
+0:24 technology in products. She's also contributed to the OpenAl Cookbook that 0:27 teaches people prompting. So thrilled
+0:29 to have you with me.
+0:31 And I'm thrilled to be here and share some prompting
+0:34 best practices with you all.
+0:36 So, there's been a lot of material on the internet
+0:39 for prompting with articles like 30 prompts everyone
+0:42 has to know. A lot of that has been focused on the
+0:47 chatGPT web user interface, which many people are using to
+0:51 do specific and often one-off tasks. But, I think
+
+0:54 the power of LLMs, large language models, as a
+0:57 developer tool, that is using API calls to LLMs to quickly build 1:02 software applications, I think that is still very underappreciated. 1:05
+1:06 In fact, my team at Al Fund, which is a sister company to 1:11 DeepLearning.ai, has been working with many startups on 1:14 applying these technologies to many different
+1:16 applications, and it's been exciting to see what LLM APIs 1:20 can enable developers to very quickly build. So, in this 1:23 course, we'll share with you some of the
+1:26 possibilities for what you can do, as well as
+1:30 best practices for how you can do them.
+1:33 There's a lot of material to cover. First, you'll learn some prompting best 1:37 practices for software development, then we'll cover some
+1:41 common use cases, summarizing, inferring, transforming, expanding, and 1:44 then you'll build a chatbot
+1:45 using an LLM. We hope that this will spark your imagination about new
+
+1:50 applications that you can build.
+1:52 So in the development of large language models or LLMs, 1:56 there have been broadly two types of LLMs, which I'm 1:59 going to refer to as base LLMs and instruction-tuned LLMs. 2:02 So, base LLM has been trained to predict
+2:05 the next word based on text training data, often trained
+2:08 on a large amount of data from the
+2:10 internet and other sources to figure out what's the next
+2:14 most likely word to follow. So, for example, if you were to prompt us once
+2:19 upon a time there was a unicorn, it may complete
+2:22 this, that is it may predict the next several words are that
+2:26 live in a magical forest with all unicorn
+2:28 friends.
+2:30 But if you were to prompt us with what is the capital of France,
+2:35 then based on what articles on the internet might have, it's
+2:39 quite possible that the base LLM will complete
+2:41 this with what is France's largest city, what is France's population and 2:45 so on, because articles on the internet could
+2:48 quite plausibly be lists of quiz questions about the
+2:51 country of France.
+2:54 In contrast, an instruction-tuned LLM, which is where a lot of
+2:58 momentum of LLM research and practice has been going, an
+3:02 instruction-tuned LLM has been trained to follow instructions. So, if you 3:06 were to ask it what is the capital of France, it's much more
+3:11 likely to output something like, the capital of
+3:14 France is Paris. So the way that instruction-tuned LLMs are typically
+
+3:18 trained is you start off with a base
+3:21 LLM that's been trained on a huge amount of text data and further train 3:26 it, further fine-tune it with inputs and outputs that are instructions
+3:30 and good attempts to follow those
+3:32 instructions, and then often further refine using a technique called
+3:36 RLHF, reinforcement learning from human feedback, to
+3:38 make the system better able to be helpful and
+3:42 follow instructions. Because instruction-tuned LLMs have been trained
+3:45 to be helpful, honest, and harmless,
+3:47 so for example, they are less likely to output problematic
+3:51 text such as toxic outputs compared to base
+3:54 LLM, a lot of the practical usage scenarios have been shifting toward
+3:58 instruction-tuned LLMs. Some of the best practices you
+4:01 find on the internet may be more suited for a
+4:05 base LLM, but for most practical applications today, we would
+4:09 recommend most people instead focus on
+4:11 instruction-tuned LLMs which are easier to
+4:13 use and also, because of the work
+4:16 of OpenAl and other LLM companies becoming safer and more aligned. 4:20
+4:20
+4:21 So, this course will focus on best practices for instruction-tuned
+4:24 LLMs, which is what we recommend you use for most
+4:28 of your applications. Before moving on, I just want to
+4:31 acknowledge the team from OpenAl and DeepLearning.ai that 4:34 had contributed to the materials that Isa and
+
+4:34 had contributed to the materials that Isa and
+4:37 I will be presenting. I'm very grateful to Andrew Mayne, Joe Palermo, Boris 4:42 Power, Ted Sanders, and Lillian Weng from OpenAl that
+4:45 were very involved with us brainstorming materials, vetting the materials 4:48 to put together the curriculum for this short
+4:51 course, and I'm also grateful on the DeepLearning side for
+4:55 the work of Geoff Lodwig, Eddy Shyu and Tommy
+4:58 Nelson. So, when you use an instruction-tuned LLM, think of giving
+5:02 instructions to another person, say someone that's smart but
+5:05 doesn't know the specifics of your task. So, when an LLM doesn't work, sometimes
+5:10 it's because the instructions weren't clear enough. For example,
+5:13 if you were to say, please write me something about
+5:16 Alan Turing. Well, in addition to that, it can be helpful to be
+5:21 clear about whether you want the text to focus on his scientific
+5:25 work or his personal life or his role
+5:28 in history or something else. And if you
+5:31 specify what you want the tone of
+5:33 the text to be, should it take on the tone like a
+5:37 professional journalist would write. Or is it more of a 5:41 casual note that you dash off to a friend?
+5:44 That helps the LLM generate what you want. And of
+5:47 course, if you picture yourself asking, say, a
+5:50 fresh college graduate to carry out this task for
+5:53 you, if you can even specify what snippets of text, they
+5:57 should read in advance to write this text about
+6:00 Alan Turing, then that even better sets up
+
+6:03 that fresh college grad for success to carry
+6:06 out this task for you. So, in the
+6:09 next video, you see examples of how to be clear and specific,
+6:13 which is an important principle of prompting LLMs. And you 6:16 also learn from Isa a second principle of
+6:19 prompting that is giving the LLM time to
+6:22 think. So with that, let's go on to the next video.
+6:26
