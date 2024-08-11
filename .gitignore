@@ -1,3 +1,8 @@
 /idea/*
 
 chatgpt_prompt_engineering_for_developers
+.idea/.gitignore
+.idea/chatgpt-promt-engineer-for-developer.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
