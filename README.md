@@ -34,6 +34,17 @@ This course uses a third-party app, ChatGPT Prompt Engineering for Developers, t
 //TODO: describe more detail about example: how to find, how to run,...
 You can find practical examples and exercises for each section by finding & executing Python code in the [code](./code/) or play with Jupyter Notebook in the [notebook](./notebook/) directories.
 
+**How to run example:**
+
+- Install Python and Pip
+- Install Jupyter Notebook:
+  - New noteboko version: `pip install notebook`
+  - Old notebook: `pip install jupyterlab`
+- Run Jupyter Notebook: open & change directory to this repository then run `jupyter lab`
+- Access to Jupter Notebook Web UI at localhost:8888 | <http://localhost:8888/lab/tree/notebook/>
+- In the left-side bar -> open File Browser (Ctrl/Command + Shift + F) -> Open the notebook for the corresponding section
+- Point to each code block then click [Execute] on Toolbar or press [Shift + Enter]
+
 ## Additional Resources
 
 Check out the [additional resources](resources/additional-resources.md) for more reading materials and tools related to prompt engineering.
