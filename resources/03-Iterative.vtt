@@ -1,0 +1,167 @@
+
+0:03 When I've been building applications with
+0:05 large language models, I don't think I've ever come to the prompt that 0:08 I ended up using in the final application on my first attempt. 0:12 And this isn't what matters. As long as you have a good process
+0:16 to iteratively make your prompt better, then you'll
+0:18 be able to come to something that works
+0:20 well for the task you want to achieve.
+0:22
+0:22 You may have heard me say that when I train a machine learning model,
+0:27 it almost never works the first time. In fact, I'm
+0:30 very surprised that the first model I trained works. I
+0:33 think we're prompting, the odds of it working the
+0:36 first time is maybe a little bit higher, but as
+0:39 he's saying, doesn't matter if the first prompt works, what matters most is 0:43 the process for getting to prompts that works for your application. So 0:47 with that, let's jump into the code and let me show
+0:50 you some frameworks to think about how to
+0:53 iteratively develop a prompt. All right. So, if you've
+0:56 taken a machine learning class with me before, you
+0:58 may have seen me use a diagram saying that with machine
+1:02 learning development, you often have an idea and
+1:04 then implement it. So, write the code, get the data,
+1:07 train your model, and that gives you an experimental result. And you
+1:11 can then look at that output, maybe do error analysis, figure out
+1:15 where it's working or not working, and then
+1:17 maybe even change your idea of exactly what problem
+1:20 you want to solve or how to approach
+1:23 it. And then change implementation and run another experiment and so
+1:26 on, and iterate over and over to get
+1:29 to an effective machine learning model. If you're not familiar with machine learning,
+1:33 haven't seen this diagram before, don't worry about
+1:35 it. Not that important for the rest of this presentation. But
+1:39 when you are writing prompts to develop an application
+1:42 using an LLM, the process can be quite
+1:44 similar, where you have an idea for what you want to 1:47 do, the task you want to complete, and you can then
+1:51 take a first attempt at writing a prompt that hopefully 1:54 is clear and specific, and maybe, if appropriate,
+1:57 gives the system time to think. And then
+1:59 you can run it and see what result
+2:02 you get. And if it doesn't work well enough the first time,
+2:05 then the iterative process of figuring out why the instructions, for
+2:09 example, were not clear enough, or why it didn't
+2:12 give the algorithm enough time to think,
+2:14 allows you to refine the idea, refine the
+2:16 prompt, and so on, and to go around this loop
+2:19 multiple times until you end up with a prompt that 2:23 works for your application.
+2:24
+2:25 This too is why I personally have not
+2:28 paid as much attention to the internet articles
+2:30 that say 30 perfect prompts, because I think,
+2:33 there probably isn't a perfect prompt for
+2:36 everything under the sun. It's more important that you have 2:39 a process for developing a good prompt for
+2:42 your specific application.
+2:44 So, let's look at an example together in code. I
+2:47 have here the starter code that you saw
+2:50 in the previous videos, have import OpenAl, import OS. Here
+2:53 we get the OpenAI API key, and this is the same
+2:57 helper function that you saw as last time.
+3:01 And I'm going to use as the running example in this video, the
+3:07 task of summarizing a fact sheet for a chair. So, let
+3:11 me just paste that in here.
+3:15 And feel free to pause the video and
+3:17 read this more carefully in the notebook on the left if you
+3:21 want. But here's a fact sheet for a chair with a description saying it's part
+3:26 of a beautiful family of mid-century inspired, and so on. It talks about
+3:30 the construction, has the dimensions, options for the
+3:33 chair, materials, and so on. It comes from Italy.
+3:37 So, let's say you want to take this fact sheet and help a marketing
+3:42 team write a description for an online retail
+3:45 website.
+3:47 Let me just quickly run these three, and then we'll
+3:51 come up with a prompt as follows, and I'll just... and I'll just paste
+3:58 this in.
+4:00 So my prompt here says, your task is to
+4:03 help a marketing team create the description for
+4:05 a retail website with a product based on
+4:08 a techno fact sheet, write a product description,
+4:10 and so on. Right? So this is my first
+4:13 attempt to explain the task to the large language model.
+4:16 So let me hit shift-enter, and this takes a few seconds to run,
+4:22 and we get this result. It looks like it's
+4:24 done a nice job writing a description, introducing a stunning mid-century insp
+4:28 office chair, perfect addition, and so on. But when
+4:31 I look at this, I go, boy, this is really long. It's done a
+4:35 nice job doing exactly what I asked it to, which is start
+4:39 from the technical fact sheet and write a
+4:41 product description.
+4:43 But when I look at this, I go, this is kind of long.
+4:48 Maybe we want it to be a little bit shorter. So, 4:53 I have had an idea, I wrote a prompt, got a result. I'm
+4:58 not that happy with it because it's too long. So, I will
+5:02 then clarify my prompt and say, use at most 50 words to try to give better 5:08 guidance on the desired length of this. And let's run it
+5:12 again.
+5:18 Okay. This actually looks like a much nicer short
+5:22 description of the product, introducing a mid-century 5:24 inspired office chair, and so on. Five of you just, yeah, both 5:28 stylish and practical. Not bad. And let me double check the 5:32 length that this is. So, I'm going to take the response, split it 5:37 according to where the space is, and then, you know, 5:41 print out the length. So it's 52 words. It's actually not bad. 5:45 Large language models are okay, but not that great 5:48 at following instructions about a very precise word 5:51 count. But this is actually not bad. Sometimes it will print 5:55 out something with 60 or 65 and so on words, but it's
+5:59 kind of within reason. Some of the things you
+6:02 could try to do would be, to say use at most
+6:06 three sentences.
+6:12 Let me run that again. But these are different ways to tell the large
+6:17 language model, what's the length of the output that you want.
+6:21 So this is 1, 2, 3, I count three sentences, looks
+6:26 like I did a pretty good job. And then I've also seen people sometimes do 6:31 things like, I don't know, use at most 280 characters. Large language models, 6:36 because of the way they interpret text, using something called
+6:40 a tokenizer, which I won't talk about. But they tend to
+6:44 be so-so at counting characters.
+6:47 But let's see, 281 characters. It's actually surprisingly close. Usually a 6:51 large language model is, doesn't get it quite this close. But these are
+6:55 different ways that you can play with to try to control the
+6:58 length of the output that you get. But let me
+7:01 just switch it back to use at most 50 words.
+7:07 And there's that result that we had just now. 7:11 As we continue to refine this text for our websites, 7:15 we might decide that, boy, this website isn't 7:18 selling direct to consumers, is actually intended to
+7:21 sell furniture to furniture retailers that
+7:23 would be more interested in the technical details of the chair and
+7:27 the materials of the chair. In that case, you
+7:31 can take this prompt and say, I want to modify this prompt to get it
+7:36 to be more precise about the technical details.
+7:41 So let me keep on modifying this prompt.
+7:45 And I'm going to say,
+7:47 this description is intended for furniture retailers,
+7:49 so should be technical and focus on materials,
+7:51 products and constructed from,
+7:54 well, let's run that.
+7:57 And let's see.
+8:00 Not bad, says, you know, coated aluminum base
+8:02 and pneumatic chair,
+8:05 high-quality materials. So by changing the prompt, you
+8:14 specific characteristics you wanted to.
+8:09 can get it to focus more on specific characters, on
+8:17 And when I look at this, I might decide at the end of the
+8:24 description, I also wanted to include the product ID.
+8:28 So the two offerings of this chair, SWC 110, SWC 100. So, maybe I can
+8:35 further improve this prompt.
+8:38 And to get it to give me the product IDs,
+8:41 I can add this instruction at the end of the description,
+8:45 include every 7-character product ID in
+8:46 the technical specification, and let's run it,
+8:50 and see what happens.
+8:52 And so, it says, introduce you to our
+8:56 Miss Agents 5 office chair, shell colors,
+8:59 talks about plastic coating, aluminum base, practical,
+9:02 some options, 9:04 talks about the two product IDs. So, this looks pretty good.
+9:09 And what you've just seen is a short example of the iterative
+9:13 prompt development that many developers will 9:16 go through.
+9:17 And I think, a guideline is, in the last video, 9:21 you saw Isa share a number of best practices, and so,
+9:25 what I usually do is keep best practices like that in mind,
+9:29 be clear and specific, and if necessary,
+9:32 give the model time to think. With those in mind, it's
+9:35 worthwhile to often take a first attempt at 9:38 writing a prompt, see what happens, and then go from there 9:42 to iteratively refine the prompt to get closer
+9:45 and closer to the result that you need. And so, a 9:49 lot of the successful prompts that you may see used in various 9:53 programs was arrived at at an iterative process like this. Just 9:57 for fun, let me show you an example of a even 10:01 more complex prompt that might give you a sense of what chatGPT
+10:05 can do, which is, I've just added a few extra 10:09 instructions here. After the description, include a 10:11 table that gives the product dimensions, and then,
+10:14 you know, format everything as HTML. So, let's run that.
+10:17
+10:19 And in practice, you end up with a prompt like this, 10:23 really only after multiple iterations. I don't think I know anyone
+10:26 that would write this exact prompt the first
+10:29 time they were trying to get the system
+10:31 to process a fact sheet.
+10:34 And so, this actually outputs a bunch of HTML.
+10:38 Let's display the HTML to see if this is even valid 10:43 HTML and see if this works. And I don't actually know it's going to
+10:49 work, but let's see. Oh, cool. All right. Looks like it rendered.
+10:54 So, it has this really nice looking description of a 10:58 chair, construction, materials, product dimensions.
+11:01
+11:01 Oh, it looks like I left out the use at most 50 words instruction,
+11:05 so this is a little bit long, but if you want that, you know, 11:08 you can even feel free to pause the video, tell it to be more
+11:12 succinct and regenerate this and see what results you get. 11:16 So, I hope you take away from this video that 11:20 prompt development is an iterative process. Try something, 11:23 see how it does not yet, fulfill exactly what you want,
+11:28 and then think about how to clarify your instructions, 11:31 or in some cases, think about how to 11:34 give it more space to think to get it closer to delivering
+11:39 the results that you want. And I think, the key to being 11:44 an effective prompt engineer isn't so much about knowing 11:47 the perfect prompt, it's about having a good process to develop 11:52 prompts that are effective for your 11:54 application. And in this video, I illustrated 11:57 developing a prompt using just one example. For more 12:01 sophisticated applications, sometimes you will have multiple 12:03 examples, say a list of 10 or even 50
+12:07 or 100 fact sheets, and iteratively develop a prompt and 12:11 evaluate it against a large set of cases. 12:16 But for the early development of most applications, 12:19 I see many people developing it sort of the way I am,
+12:24 with just one example, but then for more mature applications, 12:27 sometimes it could be useful to evaluate prompts against 12:31 a larger set of examples, such as to test 12:34 different prompts on dozens of fact sheets to 12:37 see how is average or worst case performances 12:40 on multiple fact sheets. But usually, you end up doing
+12:44 that only when an application is more mature,
+12:46 and you have to have those metrics to
+12:49 drive that incremental last few steps of prompt improvement.
+12:53 So with that, please do play with the Jupyter Code notebook 12:57 examples and try out different variations and see 13:00 what results you get. And when you're done, let's go 13:03 on to the next video, where we'll talk about one very common use of large
+13:09 language models in software applications, which is to 13:12 summarize text. So when you're ready, let's go on to the
+13:16 next video.
