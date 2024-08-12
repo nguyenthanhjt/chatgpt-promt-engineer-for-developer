@@ -6,7 +6,7 @@
 
 The "Guidelines" section of the course outlines essential principles for effective prompt engineering when working with Large Language Models (LLMs). This section provides practical strategies to help developers create prompts that yield more accurate and useful responses from LLMs.
 
-## Principles of Prompting
+## Keypoints - Principles of Prompting
 
 - **The Importance of Clear Instructions:**
   - One of the most critical factors in obtaining desired outputs from LLMs is providing clear and specific instructions. Ambiguity in prompts often leads to less accurate or irrelevant responses.
@@ -73,8 +73,6 @@ The "Guidelines" section of the course outlines essential principles for effecti
   
 2. Tactic 2: Instruct the model to work out its own solution before rushing to a conclusion
 
-   - Example: refer [Find the Section:[### Princle 2 - Tactic 2 - Example] here](../notebook/02-guideline.ipynb)
-
 ## Model Limitations
 
 - Hallucination
@@ -87,6 +85,10 @@ Tell me about AeroGlide UltraSlim Smart Toothbrush by Boie
   - First find relevant information, then answer the question based on the relevant information
 
 ```
+
+## Example
+
+Example: refer [02 Guideline Notebook here](../notebook/l2-guidelines.ipynb)
 
 ## Summary
 
