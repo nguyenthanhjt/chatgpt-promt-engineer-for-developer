@@ -16,7 +16,8 @@ This repository documents my progress and learnings from the 'ChatGPT Prompt Eng
 
 ## Examples
 
-You can find practical examples and exercises for each section in the [examples](examples/) directory.
+//TODO: describe more detail about example: how to find, how to run,...
+You can find practical examples and exercises for each section by finding & executing Python code in the [code](./code/) or play with Jupyter Notebook in the [notebook](./notebook/) directories.
 
 ## Additional Resources
 
