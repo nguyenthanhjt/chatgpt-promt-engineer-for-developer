@@ -32,6 +32,10 @@ The "Summarizing" section of the course focuses on techniques and best practices
   - **Clarity:** The summary should be easy to read and understand, avoiding unnecessary complexity.
   - **Relevance:** The summary should focus on the most important aspects of the text, leaving out irrelevant details.
 
+## Example
+
+Refer [04-Summarizing Notebook: Summarize product review from econmmerce site](../notebook/l4-summarizing.ipynb)
+
 ## Summary
 
 The "Summarizing" section provides valuable insights into creating effective summaries using LLMs. By understanding the different types of summaries, crafting clear and contextual prompts, and employing iterative refinement techniques, developers can generate concise and informative summaries tailored to their needs. The section also highlights the importance of balancing conciseness with completeness and avoiding redundancy to ensure high-quality outputs.
