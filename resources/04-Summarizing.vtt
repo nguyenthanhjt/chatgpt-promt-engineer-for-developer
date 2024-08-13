@@ -1,0 +1,114 @@
+
+0:03 There's so much text in today's world, pretty much none of us have
+0:07 enough time to read all the things we wish we had time to. So, one of
+0:12 the most exciting applications I've seen of
+0:15 large language models is to use it to
+0:17 summarize text, and this is something that I'm seeing multiple teams
+U-21 DUIIU in multipit suivant applicationɔ.
+0:23 You can do this in the chatGPT web interface. I do this all
+0:25 the time to summarize articles so I can just kind of read
+0:27 the content of many more articles than I
+0:28 previously could, and if you want to do this more programmatically you'll
+0:30 see how to in this lesson.
+0:31 So with that, let's dig into the code to
+0:35 see how you could use this yourself to summarize text. So, 0:39 let's start off with the same starter code as you saw before 0:44 of import OpenAI, load the API key, and here's that get 0:49 completion helper function.
+0:51 I'm going to use as the running example the task
+0:54 of summarizing this product review. Got
+0:56 this panda plush toy for my daughter's birthday, who loves
+1:00 it and takes it everywhere, and so on and so on. If you're buildin
+an
+1:05 e-commerce website, and there's just a large volume
+1:08 of reviews, having a tool to summarize the lengthy reviews could
+1:12 give you a way to very quickly glance
+1:15 over more reviews to get a better sense
+1:18 of what all your customers are thinking. So, here's a prompt for generating
+1:23 a summary. Your task is to generate a
+1:25 short summary of a product review from e-commerce
+1:28 website, summarize review below, and so on, in
+1:31 at most 30 words.
+1:35 And so, this is soft and cute, panda plush toy loved by daughter,
+1:40 bit small for the price, arrived early. Not bad, it's
+1:44 a pretty good summary. And as you saw in the previous video, you
+1:49 can also play with things like controlling the character
+1:52 count or the number of sentences to affect the length of this 1:57 summary. Now, sometimes when creating a summary, if
+2:00 you have a very specific purpose in mind
+2:03 for the summary, for example, if you want to give feedback 2:07 to the shipping department, you can also modify the 2:11 prompt to reflect that, so that they can generate a summary 2:15 that is more applicable to one particular group in 2:19 your business. So, for example, if I add to give feedback 2:23 to the shipping department, let's say I change this to, start to 2:28 focus on any aspects that mention shipping and delivery
+2:31 of the product. And if I run this, then, again you
+2:35 get a summary, but instead of starting off with
+2:39 Soft and Cute Panda Plush Toy, it now
+2:42 focuses on the fact that it arrived a day earlier than expected. And then
+2:47 it still has, you know, other details then.
+2:52 Or as another example, if we aren't trying to give feedback
+2:56 to their shipping department, but let's say
+2:59 we want to give feedback to the pricing department.
+3:03
+3:08 So the pricing department is responsible to determine
+3:11 the price of the product, and I'm going to tell it to focus on any 3:17 aspects that are relevant to the price and
+3:21 perceived value.
+3:23 Then, this generates a different summary that it says,
+3:30 Now in the summaries that I've generated for the
+3:27 maybe the price may be too high for a size.
+3:34 shipping department or the pricing department, it
+3:37 focus a bit more on information relevant to
+3:40 those specific departments. And in fact, feel free to pause 3:44 the video now and maybe ask it to generate information for the
+3:48 product department responsible for the customer
+3:51 experience of the product, or for something else that
+3:54 you think might be interesting to an e-commerce site.
+3:58
+4:00 But in these summaries, even though it
+4:02 generated the information relevant to shipping,
+4:04 it had some other information too, which you could decide may
+4:08 or may not be helpful.
+4:10 So, depending on how you want to summarize it,
+4:14 you can also ask it to extract information
+4:17 rather than summarize it. So here's a prompt that says you're
+tasked
+4:21 to extract relevant information to give
+4:23 feedback to the shipping department. And now it just says,
+product arrived
+4:28 a day earlier than expected without all of the other information,
+which
+4:32 was also helpful in a general summary, but less
+4:40 what happened with the shipping.
+4:36 specific to the shipping department if all it wants to know is
+4:44 Lastly, let me just share with you a concrete
+4:47 example for how to use this in a workflow to help summarize
+4:51 multiple reviews to make them easier to read.
+4:54 So, here are a few reviews. This is kind of long, but you know,
+4:58 here's the second review for a standing lamp, need 5:01 a lamp on the bedroom. Here's a third review for an 5:04 electric toothbrush. My dental hygienist recommended kind
+5:07 of a long review about the electric toothbrush. This is 5:10 a review for a blender when they said, so said 5:13 17p system on seasonal sale, and so on and so on. This is
+5:16 actually a lot of text. If you want, feel free to pause the video
+5:21 and read through all this text. But what
+5:23 if you want to know what these reviewers wrote without having t 5:27 stop and read all this in detail? So, I'm going to set review one to
+be
+5:31 just the product review that we had up there.
+5:34
+5:40 And I'm going to put all of these reviews into a list. And
+5:46 now, if I implement or loop over the reviews, so, here's my
+5:52 prompt. And here I've asked it to summarize it in at
+5:57 most 20 words. Then let's have it
+6:04 get the response and print it out. And let's run that.
+6:09 And it prints out the first review is that panda toy review,
+6:13 summary review of the lamp, summary review of the toothbrush,
+6:16 and then the blender.
+6:20 And so, if you have a website where you have hundreds of
+reviews,
+6:25 you can imagine how you might use this
+6:28 to build a dashboard to take huge numbers of reviews,
+6:31 generate short summaries of them so that you or someone else
+can
+6:36 browse the reviews much more quickly. And then,
+6:39 if they wish, maybe click in to see the original longer review.
+6:44 And this can help you efficiently get a
+6:47 better sense of what all of your customers are thinking.
+6:50
+6:52 Right? So, that's it for summarizing. And
+6:54 I hope that you can picture, if you have any applications with
+6:57 many pieces of text, how you can use prompts 7:00 like these to summarize them to help people 7:02 quickly get a sense of what's in the text, the many
+7:06 pieces of text, and perhaps optionally dig in more
+7:08 if they wish.
+7:11 In the next video, we'll look at another capability
+7:13 of large language models, which is to make inferences using text.
+For
+7:17 example, what if you had, again, product reviews and you 7:21 wanted to very quickly get a sense of which product reviews have
+7:24 a positive or a negative sentiment? Let's take a look at how to do 7:29 that in the next video.
