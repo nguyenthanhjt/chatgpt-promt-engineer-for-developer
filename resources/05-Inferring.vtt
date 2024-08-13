@@ -1,0 +1,168 @@
+
+0:03 This next video is on inferring. I like to think
+0:06 of these tasks where the model takes a text as input and
+0:09 performs some kind of analysis. So this could be extracting labels,
+0:13 extracting names, kind of understanding the
+0:14 sentiment of a text, that kind of thing.
+0:18 So if you want to extract a sentiment, positive or negative,
+0:21 of a piece of text, in the traditional
+0:24 machine learning workflow, you'd have to collect the label data set, train
+0:27 a model, figure out how to deploy the model somewhere in
+0:31 the cloud and make inferences. And that could work pretty well, but
+0:34 it was, you know, just a lot of work to
+0:37 go through that process. And also for every task, such
+0:40 as sentiment versus extracting names versus
+0:42 something else, you have to train and
+0:44 deploy a separate model. One of the really nice 0:47 things about large language model is that for
+0:49 many tasks like these, you can just write a
+0:52 prompt and have it start generating results pretty
+0:55 much right away. And that gives tremendous speed in terms
+0:58 of application development. And you can also just use one model,
+one
+1:01 API to do many different tasks rather than
+1:04 needing to figure out how to train and deploy a lot of
+1:07 different models. And so with that, let's jump
+1:10 into the code to see how you can take advantage of this. So here's
+1:14 our usual starter code. I'll just run that.
+1:18 And the most fitting example I'm going to use is a review for a lamp. So,
+1:22 "Needed a nice lamp for the bedroom and this
+1:25 one had additional storage" and so on.
+1:28 So, let me write a prompt to classify the sentiment of this.
+1:34 And if I want the system to tell me, you know, what is the sentiment.
+1:44 I can just write, "What is the sentiment
+1:49 of the following product review" with the usual delimiter
+1:54 and the review text and so on and let's run that.
+2:02 And this says, "The sentiment of the
+2:04 product review is positive.", which is actually,
+2:06 seems pretty right. This lamp isn't perfect, but
+2:08 this customer seems pretty happy. Seems to be a great 2:11 company that cares about the customers and products. I 2:14 think positive sentiment seems to be the right answer. Now 2:17 this prints out the entire sentence, "The sentiment of the product 2:21 review is positive."
+2:23 If you wanted to give a more concise response to
+2:26 make it easier for post-processing, I can take this prompt
+2:29 and add another instruction to give you answers
+2:32 to a single word, either positive or negative. So
+2:35 it just prints out positive like this, which
+2:37 makes it easier for a piece of text to take this output
+2:41 and process it and do something with it.
+2:44 Let's look at another prompt, again still using the lamp review.
+2:50 Here, I have,it "Identify a list of emotions that the writer of 2:54 the following review is expressing. Include no more than 2:56 five items in this list."
+2:59 So, large language models are pretty good at extracting 3:02 specific things out of a piece of text. In this case, we're 3:07 expressing the emotions and this could be useful for
+3:10 understanding how your customers think about
+3:12 a particular product. For a lot of customer support organizations, 3:16 it's important to understand if a particular user is extremely upset. 3:20 So, you might have a different classification problem like
+3:23 this, "Is the writer of the following
+3:26 review expressing anger?". Because if
+3:28 someone is really angry, it might merit paying extra
+3:31 attention to have a customer review, to have customer support or 3:35 customer success, reach out to figure what's going on
+3:38 and make things right for the customer. In this case,
+3:42 the customer is not angry. And notice that
+3:45 with supervised learning, if I had
+3:47 wanted to build all of these classifiers, there's no way
+3:51 I would have been able to do this with
+3:54 supervised learning in the just a few minutes
+3:57 that you saw me do so in this video. I'd encourage you to pause
+4:02 this video and try changing some of these
+4:05 prompts. Maybe ask if the customer is expressing delight or ask if
+4:10 there are any missing parts and see if you can a prompt
+4:14 to make different inferences about this lamp review.
+4:17
+4:18 Let me show some more things that you
+4:23 can do with this system, specifically extracting
+4:27 richer information from a customer review.
+4:32 So, information extraction is the part of NLP,
+4:35 of Natural Language Processing, that relates to taking
+4:38 a piece of text and extracting certain things
+4:41 that you want to know from the text. So in this prompt, I'm
+4:46 asking it to identify the following items, the
+4:49 item purchase, and the name of the company
+4:52 that made the item. Again, if you are trying to
+4:56 summarize many reviews from an online shopping e-commerce
+website,
+4:59 it might be useful for your large collection of reviews
+5:03 to figure out what were the items, who made
+5:07 the item, figure out positive and negative
+5:09 sentiment, to track trends about positive or negative sentiment
+5:13 for specific items or for specific
+5:15 manufacturers. And in this example, I'm going to
+5:18 ask it to format your response as a JSON object with "Item" and
+"Brand" as
+5:24 the keys. And so if I do that, it says the
+5:33 into the Python dictionary to then do additional processing
+5:28 item is a lamp, the brand is Lumina, and you can easily load this
+5:37 on this output. In the examples we've gone through, you
+5:41 saw how to write a prompt to recognize
+5:44 the sentiment, figure out if someone is angry, and then also
+extract
+5:48 the item and the brand.
+5:51 One way to extract all of this information
+5:55 would be to use three or four prompts and call "get_completion",
+5:59 you know, three times or four times
+6:02 to extract these different views one at a time. But
+6:06 it turns out you can actually write a
+6:10 single prompt to extract all of this information
+6:13 at the same time. So let's say "identify the
+6:17 following items, extract sentiment, is the
+6:19 reviewer expressing anger, item purchased, company that
+6:22 made it". And then here I'm also going
+6:25 to tell it to format the anger value as a
+6:30 boolean value, and let me run that. And this outputs
+6:34 a JSON where sentiment is positive, anger, and then
+6:37 no quotes around false because it asked it to
+6:41 just output it as a boolean value. Extracted the item as "lamp with
+additional
+6:47 storage" instead of lamp, seems okay.
+6:51 But this way you can extract multiple fields
+6:54 out of a piece of text with just a single prompt.
+6:59 And, as usual, please feel free to pause the video and play
+7:02 with different variations on this yourself.
+7:05 Or maybe even try typing in a totally
+7:08 different review to see if you can still
+7:11 extract these things accurately. Now, one of the cool applications
+I've
+7:16 seen of large language models is inferring topics. Given
+7:19 a long piece of text, you know, what
+7:22 is this piece of text about? What are the topics? Here's a
+7:27 fictitious newspaper article about how government workers feel
+7:30 about the agency they work for. So, the recent 7:33 survey conducted by government, you know, and so
+7:36 on. "Results revealed that NASA was a popular department with a
+high
+7:41 satisfaction rating." I am a fan of NASA, I love 7:45 the work they do, but this is a fictitious article. And so,
+7:49 given an article like this, we can ask it, with this prompt, to
+determine
+7:55 five topics that are being discussed in the
+7:58 following text. 8:00 Let's make each item one or two words long, for 8:04 my response, in a comma-separated list. And so, if we
+8:07 run that, you know, we get this article. It's about a 8:11 government survey, it's about job satisfaction, it's about NASA,
+and so
+8:16 on. So, overall, I think, pretty nice extraction of a
+8:19 list of topics. And, of course, you can also, you know,
+8:23 split it so you get a Python list with the five topics that 8:28 this article was about.
+8:31 And if you have a collection of articles and extract 8:35 topics, you can then also use a large language 8:38 model to help you index into different topics. So,
+8:42 let me use a slightly different topic list. Let's 8:45 say that we're a news website or something, and, you know, 8:49 these are the topics we track. "NASA, local 8:52 government, engineering, employee satisfaction, federal
+government".
+8:55 And let's say you want to figure out, given a news
+8:59 article, which of these topics are covered in that 9:02 news article. 9:04 So, here's a prompt that I can use. 9:07 I'm going to say, determine whether each item in
+9:10 the final list of topics is a topic in the text below.
+9:14 Give your answer as a list of 0 or 1 for each topic. 9:17 And so, great. So, this is the same story text as before. 9:22 So, this thing is a story. It is about NASA. It's 9:26 not about local government. It's not about engineering. It is
+9:29 about employee satisfaction, and it is about federal government.
+So, with
+9:33 this, in machine learning, this is sometimes called a "Zero-Shot Learning Algorithm",
+9:38 because we didn't give it any training data that was 9:41 labeled, so that's Zero-Shot. And with just a prompt, it
+9:45 was able to determine which of these topics are covered in that
+news article.
+9:50 And so, if you want to generate a
+9:53 news alert, say, so that process news, and I really like a lot
+9:57 of work that NASA does. So, if you want to build a 10:02 system that can take this, put this information into a dictionary,
+10:05 and whenever NASA news pops up, print "ALERT: New NASA
+story!", they 10:10 can use this to very quickly take any article, figure 10:13 out what topics it is about, and if the topic includes NASA,
+10:18 have it print out "ALERT: New NASA story!". Oh, just one
+10:22 thing. I use this topic dictionary down here. This prompt that I
+use up
+10:27 here isn't very robust. If I wanted a production system, I 10:31 would probably have it output the answer in JSON format, rather 10:34 than as a list, because the output of the large language 10:38 model can be a little bit inconsistent. So, this is actually a 10:43 pretty brittle piece of code. But if
+10:45 you want, when you're done watching this video, feel free to
+10:49 see if you can figure out how to modify this prompt, to have 10:54 it output JSON instead of a list like this, and then
+10:58 have a more robust way to tell if a particular article is a story 11:03 about NASA.
+11:05 So, that's it for inferring. And in just a few minutes, you 11:09 can build multiple systems for making inferences about text 11:12 that previously just would have taken days or even 11:16 weeks for a skilled machine learning developer. And so, I 11:20 find this very exciting that both for skilled 11:23 machine learning developers, as well as for people that 11:26 are newer to machine learning, you can now use prompting to
+very 11:30 quickly build and start making inferences on pretty complicated 11:34 natural language processing tasks like these. In 11:36 the next video, we'll continue to talk about exciting things you 11:41 could do with large language models, and we'll go on 11:44 to "Transforming". How can you take one piece of text and
+transform it
+11:49 into a different piece of text, such as translate
+11:53
+it to a different language. Let's go on to
+11:56 the next video.
