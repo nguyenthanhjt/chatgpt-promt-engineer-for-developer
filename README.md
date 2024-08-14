@@ -4,20 +4,18 @@ This repository documents my progress and learnings from the 'ChatGPT Prompt Eng
 
 ## Overview
 
-About this short course
-
-In ChatGPT Prompt Engineering for Developers, you will learn how to use a large language model (LLM) to quickly build new and powerful applications.  Using the OpenAI API, you’ll be able to quickly build capabilities that learn to innovate and create value in ways that were cost-prohibitive, highly technical, or simply impossible before now. This short course taught by Isa Fulford (OpenAI) and Andrew Ng (DeepLearning.AI) will describe how LLMs work, provide best practices for prompt engineering, and show how LLM APIs can be used in applications for a variety of tasks, including:
+In ChatGPT Prompt Engineering for Developers, you will learn how to use a large language model (LLM) to quickly build new and powerful applications. Using the OpenAI API, you’ll be able to quickly build capabilities that learn to innovate and create value in ways that were cost-prohibitive, highly technical, or simply impossible before now. This short course taught by Isa Fulford (OpenAI) and Andrew Ng (DeepLearning.AI) will describe how LLMs work, provide best practices for prompt engineering, and show how LLM APIs can be used in applications for a variety of tasks, including:
 
 - Summarizing (e.g., summarizing user reviews for brevity)
 - Inferring (e.g., sentiment classification, topic extraction)
-- Transforming text (e.g., translation, spelling & grammar correction)
+- Transforming text (e.g., translation, spelling \& grammar correction)
 - Expanding (e.g., automatically writing emails)
 
 In addition, you’ll learn two key principles for writing effective prompts, how to systematically engineer good prompts, and also learn to build a custom chatbot. All concepts are illustrated with numerous examples, which you can play with directly in our Jupyter notebook environment to get hands-on experience with prompt engineering.
 
 This course uses a third-party app, ChatGPT Prompt Engineering for Developers, to enhance your learning experience. The app will reference basic information like your name, email, and Coursera ID.
 
-## Table of Contents - Course Contents
+## Table of Contents
 
 1. [Introduction](sections/01-Introduction.md)
 2. [Guidelines](sections/02-Guidelines.md)
@@ -31,19 +29,18 @@ This course uses a third-party app, ChatGPT Prompt Engineering for Developers, t
 
 ## Examples
 
-//TODO: describe more detail about example: how to find, how to run,...
-You can find practical examples and exercises for each section by finding & executing Python code in the [code](./code/) or play with Jupyter Notebook in the [notebook](./notebook/) directories.
+You can find practical examples and exercises for each section by finding \& executing Python code in the [code](./code/) or play with Jupyter Notebook in the [notebook](./notebook/) directories.
 
-**How to run example:**
+### How to Run Examples
 
-- Install Python and Pip
-- Install Jupyter Notebook:
-  - New noteboko version: `pip install notebook`
-  - Old notebook: `pip install jupyterlab`
-- Run Jupyter Notebook: open & change directory to this repository then run `jupyter lab`
-- Access to Jupter Notebook Web UI at localhost:8888 | <http://localhost:8888/lab/tree/notebook/>
-- In the left-side bar -> open File Browser (Ctrl/Command + Shift + F) -> Open the notebook for the corresponding section
-- Point to each code block then click [Execute] on Toolbar or press [Shift + Enter]
+1. Install Python and Pip
+2. Install Jupyter Notebook:
+   - New notebook version: `pip install notebook`
+   - Old notebook: `pip install jupyterlab`
+3. Run Jupyter Notebook: open \& change directory to this repository then run `jupyter lab`
+4. Access the Jupyter Notebook Web UI at `localhost:8888` | <http://localhost:8888/lab/tree/notebook/>
+5. In the left-side bar, open File Browser (Ctrl/Command + Shift + F), then open the notebook for the corresponding section
+6. Point to each code block, then click \[Execute\] on the Toolbar or press \[Shift + Enter\]
 
 ## Additional Resources
 
@@ -59,4 +56,4 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## Contact
 
-If you have any questions, feel free to reach out via [GitHub Issues](https://github.com/your-username/ChatGPT-Prompt-Engineering/issues).
+If you have any questions, feel free to reach out via [GitHub Issues](https://github.com/nguyenthanhjt/chatgpt-promt-engineer-for-developer/issues).
