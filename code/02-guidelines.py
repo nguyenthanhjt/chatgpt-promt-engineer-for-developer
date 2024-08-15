@@ -5,7 +5,7 @@ import os
 # _ = load_dotenv(find_dotenv()) # read local .env file
 
 # openai.api_key = os.getenv('OPEN_API_KEY')
-# To get OpenAI API Key: Access to https://platform.openai.com/settings/profile?tab=api-keys
+
 openai.api_key = "sk-"
 
 def get_completion(prompt, model="gpt-3.5-turbo"):
