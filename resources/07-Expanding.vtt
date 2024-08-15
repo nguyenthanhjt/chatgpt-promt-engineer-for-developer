@@ -1,0 +1,117 @@
+0:03 Expanding is the task of taking a shorter piece of text,
+0:06 such as a set of instructions or a list of topics,
+0:09 and having the large language model generate a
+0:12 longer piece of text, such as an email or
+0:15 an essay about some topic. There are some great uses of this,
+0:18 such as if you use a large language model as a brainstorming partner.
+0:22 But I just also want to acknowledge that there's
+0:25 some problematic use cases of this, such as if someone were to use it, they
+0:29 generate a large amount of spam. So, when you use these capabilities of
+0:33 a large language model, please use it only in
+0:36 a responsible way, and in a way that helps people.
+0:39 In this video we'll go through an example of how you can
+0:43 use a language model to generate a personalized
+0:46 email based on some information. The
+0:48 email is kind of self-proclaimed to be from an AI bot which, as Andrew
+0:53 mentioned, is very important. We're also going
+0:55 to use another one of the model's input parameters called
+0:59 "temperature" and this kind of allows you to vary
+1:02 the kind of degree of exploration and variety
+1:05 in the kind of model's responses. So let's get into it!
+1:09 So before we get started we're going to kind of do the
+1:13 usual setup. So set up the OpenAI Python package and then also define
+1:18 our helper function "get_completion".
+1:19
+1:20 And now we're going to write a custom email response to
+1:25 a customer review and so given a customer review and the sentiment
+1:29 we're going to generate a custom response. Now we're
+1:33 going to use the language model to generate a custom
+1:36 email to a customer based on a customer
+1:39 review and the sentiment of the review. So we've already
+1:43 extracted the sentiment using the kind of prompts that we saw
+1:47 in the inferring video and then this is the customer review for
+1:52 a blender.
+1:54 And now we're going to customize the reply
+1:57 based on the sentiment.
+1:59 And so here the instruction is "You are a customer service AI assistant.
+2:03 Your task is to send an email reply to a valued customer.
+2:07 Given the customer email delimited" by three backticks,
+2:10 "Generate a reply to thank the customer for their review.
+2:13 If the sentiment is positive or neutral, thank them for their review.
+2:16 If the sentiment is negative, apologize and suggest that they can
+2:20 reach out to customer service. Make sure to use
+2:22 specific details from the review, write in a concise
+2:25 and professional tone and sign the email as 'AI customer agent'".
+2:28 And when you're using a language model to
+2:31 generate text that you're going to show to a user, it's very important
+2:35 to have this kind of transparency and let
+2:37 the user know that the text they're seeing was generated
+2:40 by AI.
+2:42 And then we'll just input the customer review
+2:45 and the review sentiment. And also note that this part isn't necessarily
+2:49 important because we could actually use this prompt to
+2:52 also extract the review sentiment and then in a follow-up step write
+2:56 the email. But just for the sake of the example, well, we've already
+3:00 extracted the sentiment from the review. And so, here we have a
+3:04 response to the customer. It addresses details that
+3:07 the customer mentioned in their review.
+3:09 And kind of as we instructed, suggests that they reach
+3:12 out to customer service because this is just
+3:15 an AI customer service agent.
+3:19 Next, we're going to use a parameter of the language model called
+3:23 "temperature" that will allow us to
+3:25 change the kind of variety of the model's responses. So you
+3:28 can kind of think of temperature as the
+3:31 degree of exploration or kind of randomness of
+3:34 the model. And so for this particular phrase, "my favorite
+3:37 food is", the kind of most likely next
+3:40 word that the model predicts is "pizza", and the
+3:43 kind of next to most likely it suggests are "sushi" and
+3:47 "tacos". And so at a temperature of zero, the model
+3:50 will always choose the most likely next word, which in
+3:53 this case is "pizza", and at a higher temperature, it will
+3:57 also choose one of the less likely words, and even
+4:00 at an even higher temperature, it might even choose "tacos", which only
+4:05 kind of has a 5% chance of being chosen. And you
+4:08 can imagine that kind of as the model continues this final response,
+4:12 so my favorite food is pizza, and it
+4:15 kind of continues to generate more words, this response
+4:18 will kind of diverge from the response, the first
+4:21 response, which is my favorite food is tacos. And so
+4:24 as the kind of model continues, these two responses will become more
+4:28 and more different. In general, when building
+4:31 applications where you want a predictable
+4:33 response, I would recommend using temperature
+4:35 zero. Throughout all of these videos, we've been using
+4:38 temperature zero, and I think that if you're trying to build
+4:42 a system that is reliable and predictable, you should go with
+4:45 this. If you're trying to use the model in a more creative
+4:49 way, where you might want a kind of wider variety
+4:53 of different outputs, you might want to use
+4:55 a higher temperature. So now let's take this
+4:58 same prompt that we just used, and let's try generating an email, but let's
+5:03 use a higher temperature. So in our "get_completion" function that we've been
+5:07 using throughout the videos, we have kind of
+5:09 specified a model and then also a temperature, but we've
+5:13 kind of set them to default. So now let's try
+5:16 varying the temperature.
+5:17
+5:19 So we use the prompt, and then let's try temperature 0.7.
+5:32 And so with temperature zero, every time you execute the same prompt,
+5:36 you should expect the same completion. Whereas with temperature 0.7, you'll get
+5:41 a different output every time. So here we have our email, and as
+5:46 you can see, it's different to the email that we kind of
+5:50 received previously. And let's just execute it
+5:53 again to show that we'll get a different email again.
+5:57 And here we have another different email. And so I recommend
+6:01 that you kind of play around with temperature
+6:03 yourself. Maybe you can pause the video now and
+6:07 try this prompt with a variety of different
+6:09 temperatures just to see how the outputs vary.
+6:14 So to summarize, at higher temperatures the
+6:16 outputs from the model are kind of more random.
+6:19 You can almost think of it as that at higher temperatures the
+6:24 assistant is more distractible but maybe more creative.
+6:28 In the next video we're going to talk more about the
+6:31 chat completions endpoint format and how you can create
+6:34 a custom chatbot using this format.
