@@ -1,0 +1,126 @@
+0:03 Large language models are very good at transforming its input to a
+Q:Q7 different format, such as inputting a
+0:09 piece of text in one language and transforming
+0:11 it or translating it to a different language,
+0:14 or helping with spelling and grammar corrections.
+0:16 So taking as input a piece of text that may not be 0:20 fully grammatical and helping you to fix that up a bit,
+0:24 or even transforming formats, such as inputting
+0:26 HTML and outputting JSON. So there's a bunch of applications that I
+0:30 used to write somewhat painfully with a bunch of regular expressions that
+0:34 would definitely be much more simply implemented now with a large language
+0:38 model and a few prompts.
+0:40 Yeah, I use ChatGPT to proofread pretty much everything 0:43 I write these days, so I'm excited to show you 0:46 some more examples in the notebook now. So first we'll import 0:50 OpenAI and also use the same get.completion helper function 0:53 that we’ve been using throughout the videos. And the first thing 0:56 we'll do is a translation task. So large language models are TOO trained on a lot of text from kind of many sources, a 1:04 lot of which is the internet, and this is kind of,
+1:08 of course, in many different languages. So this kind of imbues 1:11 the model with the ability to do translation.
+1:14 And these models know kind of hundreds of languages to varying 1:18 degrees of proficiency. And so we’ll go through 1:20 some examples of how to use this capability.
+1l23
+T25 So let's start off with something simple.
+T27 So in this first example, the prompt is
+1:31 translate the following English text to Spanish. "Hi,
+T34 I would like to order a blender". And the response is "Hola,
+1:40 me gustaría ordenar una licuadora". And I'm very sorry to all 1:44 of you Spanish speakers. I never learned Spanish, unfortunately,
+T48 as you can definitely tell.
+T52 Okay, let's try another example. So in this example, the prompt is "Tell T58 me what language this is".
+2:02 And then this is in French, "Combien coûte le lampadaire".
+2:07 And so let's run this.
+2:10 And the model has identified that "This is French."
+2:16 The model can also do multiple translations at once.
+2:19 So in this example, let's say translate the following text 2:23 to French and Spanish.
+2:26 And you know what? Let's add another an English pirate.
+2:32 And the text is "I want to order a basketball".
+2:39 So here we have French, Spanish and English pirate.
+2=45 So in some languages, the translation can change 2:48 depending on the speaker’s relationship to the listener. And 2:51 you can also explain this to the language model. And 2:54 so it will be able to kind of translate accordingly.
+2:58 So in this example, we say, "Translate 3:00 the following text to Spanish in both the
+3:03 formal and informal forms". "Would you like to order a pillow?" And 3:07 also notice here we’re using a different delimiter than 3:10 these backticks. It doesn't really matter 3:12 as long as there's kind of a clear separation.
+3=16 So here we have the formal and informal.
+3=20 So formal is when you're speaking to someone who's maybe 3:23 senior to you or you're in a professional situation. That's when you 3=27 use a formal tone and then informal is when you’re speaking to maybe a 3=32 group of friends. I don't actually speak Spanish but my dad does and he says 3=37 that this is correct. So for the next example, we're
+3:40 going to pretend that we're in charge of a multinational e-commerce company
+3=44 and so the user messages are going to be in all
+3:48 different languages and so users are going to
+3:50 be telling us about their IT issues in a wide variety of
+3:54 languages. So we need a universal translator. So first we'll
+3:57 just paste in a list of user messages in a variety of different languages.
+4i02
+4:03 And now we will loop through each of these user messages.
+4:11 So "for issue in user.messages".
+4:16 And then I'm going to copy over this slightly longer code block.
+4:21 And so the first thing we'll do is ask the model
+4:25 to tell us what language the issue is in. So here’s the
+4:30 prompt. Then we'll print out the original message’s language and the
+4:34 issue. And then we’ll ask the model to translate it into English and
+4:39 Korean.
+4:41 So let's run this.
+4:44 So the original message in French.
+4:51 So we have a variety of languages and
+4:54 then the model translates them into English and then Korean.
+4:57 And you can kind of see here, so the model says, "This is French".
+5:01 So that’s because the response from this
+5:03 prompt is going to be "This is French". You
+5:06 could try editing this prompt to say something
+5:09 like tell me what language this is, respond
+5:11 with only one word or don’t use a sentence, that kind
+5:15 of thing. If you wanted this to just be one word. Or you
+5:19 could ask for it in a JSON format or something like that, which would
+5:23 probably encourage it to not use a whole sentence.
+5i26
+5:27 And so amazing, you’ve just built a universal translator. And 5=31 also feel free to pause the video and add kind 5=35 of any other languages you want to try here. Maybe 5=39 languages you speak yourself and see how the model 5:42 does.
+5:44 So, the next thing we're going to dive into
+5:47 is tone transformation. Writing can vary based on
+5:49 an intended audience, you know, the way that I would write an email to
+5:54 a colleague or a professor is obviously going
+5:57 to be quite different to the way I
+5=59 text my younger brother. And so, ChatGPT can actually also help 6:03 produce different tones.
+6:05 So, let's look at some examples. So, in this first example, the 6:09 prompt is "Translate the following from slang 6=12 to a business letter". "Dude, this is Joe, check out this spec on 6:17 the standing lamp."
+6:19 So, let’s execute this.
+6:24 And as you can see, we have a much more formal business letter 6:29 with a proposal for a standing lamp specification.
+6:33 The next thing that we're going to do is to
+6:37 convert between different formats. ChatGPT is very good at translating between 6:40 different formats such as JSON to HTML, you know, XML, all 6:44 kinds of things. Markdown.
+6:47 And so, in the prompt, we’ll describe both the input 6:51 and the output formats. So, here is an example. So, we 6:55 have this JSON that contains a list of 6:59 restaurant employees with their name and email.
+7:03 And then in the prompt, we're going to ask the 7:07 model to translate this from JSON to HTML. So, the 7:11 prompt is "Translate the following Python dictionary 7:13 from JSON to an HTML table with column 7:17 headers and title".
+7:20 And then we'll get the response from the 7:24 model and print it.
+7:28 So, here we have some HTML displaying all of 7:33 the employee names and emails.
+7=37 And so, now let's see if we can actually view this HTML. So,
+7:43 we're going to use this display function from this Python library,
+7:49 "display (HTML(response))".
+7:53 And here you can see that this is a properly formatted HTML table.
+7:59 The next transformation task we're going to do is spell
+8:03 check and grammar checking. And this is a really kind
+8:06 of popular use for ChatGPT. I highly recommend doing this, I
+8:10 do this all the time. And it's especially useful when you're working in
+8=15 a non-native language. And so here are some examples of some common grammar
+8:20 and spelling problems and how the language model can help address these.
+8:24 So I'm going to paste in a list of sentences that have some grammatical 8:29 or spelling errors.
+8=32 And then we're going to loop through each of these sentences 8:40 and ask the model to proofread these.
+8:47 Proofread and correct. And then we'll use some delimiters.
+9:03 And then we will get the response and print it as usual.
+9=26 And so the model is able to correct all of these grammatical errors.
+9=31 We could use some of the techniques that we've
+9:34 discussed before. So we could, to improve the prompt, we
+9:38 could say proofread and correct the following text.
+9:44 And rewrite.
+9:55 And rewrite the whole.
+1Q:Q1 And rewrite it.
+10:03 Corrected version. If you don't find any errors, just 10:13 say no errors found.
+10:19 Let's try this.
+10:25 So this way we were able to, oh, they’re still using quotes here. But 10:29 you can imagine you'd be able to find a way 10:32 with a little bit of iterative prompt development. To kind 10:35 of find a prompt that works more reliably every single time.
+10:40 And so now we'll do another example. It’s always useful to check your text
+10:44 before you post it in a public forum. And so we'll go through
+10:48 an example of checking a review. And so here
+10:51 is a review about a stuffed panda. And so we’re
+10:53 going to ask the model to proofread and correct the review.
+10i52
+10:59 Great. So we have this corrected version.
+11:02 And one cool thing we can do is find the kind of
+11:07 differences between our original review and the model's output. So
+11:11 we're going to use this redlines Python package to do this. And we’re
+11:16 going to get the diff between the original text of
+1T20 our review and the model output and then
+1T23 display this.
+1T25 And so here you can see the diff between the original review 1T29 and the model output and the kind of
+1T32 things that have been corrected. So, the prompt that we used was,
+1T37 "proofread and correct this review". But you can also make 11=40 kind of more dramatic changes, changes to tone,
+1T43 and that kind of thing. So, let's try one more thing. So, in 1T47 this prompt, we're going to ask the model to proofread and correct 1T52 this same review, but also make it more compelling and ensure 1T55 that it follows APA style and targets an advanced 1T59 reader. And we're also going to ask for the output
+12:02 in markdown format. And so we're using the same text from the original review 12:07 up here. So, let's execute this.
+12=12 And here we have an expanded APA style
+12=15 review of the softpanda. So, this is it for the transforming video.
+12:20 Next up, we have "Expanding", where we’ll take a shorter prompt and 12:25 kind of generate a longer, more freeform response from 12:28 a language model.
+
