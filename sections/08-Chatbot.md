@@ -6,11 +6,13 @@ In this section, the focus is on building chatbots using Large Language Models (
 
 ## Key Points
 
-Single prompt - Single completion : Single-turn task without any conversation:
+Single prompt - Single completion : each conversation with a language model is a standalone interaction, which mean that
+you must provide all relevant messages for the model to draw from 
+
 
 ![x](../resources/images/OpenAI-API-Call.png)
 
-Mul
+Multi prompt - Conversation completion
 
 ![x](../resources/images/OpenAI-API-Call_role.png)
 
