@@ -1,0 +1,195 @@
+0:03 One of the exciting things about a large
+0:05 language model is you could use it to
+0:07 build a custom chatbot with only a modest amount of effort.
+0:11 ChatGPT, the web interface, is a way for you
+0:13 to have a conversational interface, a conversation via a large language
+0:17 model. But one of the cool things is you can also use a
+0:21 large language model to build your custom chatbot
+0:23 to maybe play the role of an AI customer service agent or
+0:27 an AI order taker for a restaurant. And in this video, you'll
+0:30 learn how to do that by yourself.
+0:32 I'm going to describe the components of
+0:35 the OpenAI chat completions format in
+0:37 more detail and then you're going to build a chatbot yourself. So let's
+0:41 get into it. So first we'll set up the OpenAI Python package as
+0:46 usual.
+0:48 So chat models like ChatGPT are actually trained
+0:50 to take a series of messages as input
+0:53 and return a model generated message as output.
+0:55 And so although the chat format is designed to make multi-turn
+0:59 conversations like this easy, we've kind of seen through the previous
+1:03 videos that it's also just as useful for single-turn tasks without any
+1:07 conversation. And so next we're going to define two
+1:09 helper functions. So this is the one that we've been using throughout all the
+1:14 videos and it's the "get_completion" function. But if you kind of look
+1:18 at it, we give a prompt but then inside the
+1:21 function what we're actually doing is putting this prompt into what
+1:25 looks like some kind of user message. And
+1:27 this is because the ChatGPT model is a
+1:30 chat model which means it's trained to take
+1:33 a series of messages as input and then return a
+1:36 model generated message as output. So the user
+1:38 message is the input and then the
+1:41 assistant message is the output.
+1:42
+1:44 So in this video we're going to actually use a different
+1:47 helper function and instead of kind of putting a
+1:50 single prompt as input and getting a single completion, we're going
+1:53 to pass in a list of messages and these messages can be
+1:57 kind of from a variety of different roles. So I'll describe those.
+2:00 So here's an example of a list of messages and so the first
+2:04 message is a system message which kind of
+2:07 gives an overall instruction and then after this
+2:09 message we have turns between the user and
+2:12 the assistant and this will kind of continue
+2:14 to go on. And if you've ever used ChatGPT, the web interface, then your
+2:18 messages are the user messages and then ChatGPT's
+2:21 messages are the assistant messages. So the system message helps to
+2:24 kind of set the behavior and persona of
+2:27 the assistant and it acts as kind of
+2:29 a high-level instruction for the conversation. So you can kind of think of
+2:33 it as whispering in the assistant's ear and kind of guiding its responses
+2:37 without the user being aware of the system
+2:40 message. So as the user, if you've ever used
+2:42 ChatGPT, you probably don't know what's in ChatGPT's system message.
+2:45 The benefit of the system message is that it provides you, the
+2:49 developer, with a way to kind of frame the conversation without
+2:52 making the request itself part of the conversation. So you can
+2:56 kind of guide the assistant and
+2:58 kind of whisper in its ear and guide its responses without
+3:01 making the user aware.
+3:02
+3:04 So now let's try to use these messages in a conversation.
+3:10 So we'll use our new helper function to get the
+3:13 completion from the messages.
+3:17 And we're also using a higher temperature.
+3:21 So the system message says, "You are an assistant
+3:24 that speaks like Shakespeare". So this is us kind of describing to
+3:27 the assistant how it should behave. And then the first user message is,
+3:31 "Tell me a joke". The next is, "Why did the chicken cross the road?"
+3:35 And then the final user message is, "I don't know."
+3:41 So if we run this, the response is "To get to the other side". Let's
+3:46 try again.
+3:50 "To get to the other side, fair sir or madam". It is an old
+3:54 and classic that never fails. So there's
+3:57 our Shakespearean response.
+4:00 And let's actually try one more thing. Because
+4:03 I want to make it even clearer that
+4:06 this is the assistant message. So here, let's just go and print the
+4:11 entire message response.
+4:27 So just to make this even clearer. This response is an assistant message.
+4:32 So the role is assistant and then the
+4:35 content is the message itself. So that's what's happening
+4:38 in this helper function. We're just kind of passing out the content
+4:43 of the message.
+4:59 So now let's do another example. So here our messages are, the
+5:03 system message is "You are a friendly chatbot", and
+5:06 the first user message is, "Hi, my name is Isa". And we want to get
+5:11 the first user message. So let's execute this for the first
+5:15 assistant message.
+5:17 And so the first message is, "Hello Isa! It's nice to meet you. How
+5:21 can I assist you today?"
+5:28 Now let's try another example.
+5:32 So here our messages are system message, "You are a friendly chatbot"
+5:37 and the first user message is, "Yes, can you remind me what is my "name?
+5:44 And let's get the response.
+5:50 And as you can see, the model doesn't actually know my name.
+5:56 So each conversation with a language model is a
+5:59 standalone interaction, which means that you must provide
+6:01 all relevant messages for the model to draw from in the current
+6:05 conversation.
+6:06 If you want the model to draw from, or quote unquote remember
+6:10 earlier parts of a conversation, you must provide the
+6:13 earlier exchanges in the input to the model. And so we'll
+6:17 refer to this as context. So let's try this.
+6:25 So now we've kind of given the context that the model needs, which
+6:29 is my name, in the previous messages, and we'll ask
+6:32 the same question, so we'll ask what my name is.
+6:37 And the model is able to respond because
+6:39 it has all of the context it needs in this kind of
+6:43 list of messages that we input to it. So now you're
+6:46 going to build your own chatbot.
+6:49 This chatbot is going to be called "OrderBot", and we're
+6:52 going to automate the collection of user prompts
+6:54 and assistant responses in order to build this "OrderBot". And
+6:57 it's going to take orders at a pizza restaurant, so first
+7:01 we're going to define this helper function, and what this
+7:04 is doing is it's going to kind of collect our user messages
+7:07 so we can avoid typing them in by hand in
+7:10 the same, in the way that we did above, and this is going
+7:14 to kind of collect prompts from a user interface that
+7:17 we'll build below, and then append it to
+7:19 a list called "context", and then it will call the model with that
+7:23 context every time. And the model response is
+7:26 then also added to the context, so the kind of model
+7:29 message is added to the context, the user message is added
+7:32 to the context, so on, so it just kind of
+7:35 grows longer and longer.
+7:37 This way the model has the information it needs to
+7:41 determine what to do next. And so now we'll
+7:44 set up and run this kind of UI to display the Autobot. And
+7:48 so here's the context, and it contains the system message that
+7:51 contains the menu.
+7:53 And note that every time we call the language model, we're
+7:57 going to use the same context, and the context is building
+8:01 up over time.
+8:05 And then let's execute this.
+8:13 Okay, I'm going to say, "Hi, I would like to order a pizza". And
+8:23 the assistant says, "Great, what pizza would you like to order? We
+8:32 have pepperoni, cheese, and eggplant pizza." Hmm. "How
+8:37 much are they?", Great, okay, we have the prices. I think I'm feeling
+8:47 a medium eggplant pizza. So as you can imagine, we could
+8:55 continue this conversation. And let's kind of look at what we put in
+9:04 the system message.
+9:08 So, "You are Autobot, an automated service
+9:10 to collect orders for a pizza restaurant.
+9:12 You first greet the customer, then collect the order,
+9:14 and then ask if it's a pick-up or delivery. You wait
+9:17 to collect the entire order, then summarize it and check for
+9:20 a final time if the customer wants to
+9:23 add anything else. If it's a delivery, you can ask
+9:25 for an address. Finally, you collect the payment. Make sure to
+9:29 clarify all options, extras and sizes to uniquely identify
+9:31 the item from the menu. You respond in a short, very conversational, friendly
+9:35 style. The menu includes.", and then, here
+9:37 we have the menu.
+9:40 So, let's go back to our conversation, and
+9:43 let's see if the assistant kind of has been following
+9:45 the instructions.
+9:47 Okay, great, the assistant asks if we want any toppings,
+9:50 which we kind of specified in the system message.
+9:54 So, I think we want no extra toppings.
+10:04 Sure thing. "Is there anything else you would like to order?" Let's
+10:12 get some water. Actually,fries.
+10:21 Small or large? This is great because
+10:23 we kind of asked the assistant in the
+10:26 system message to kind of clarify extras and sides.
+10:35 And so, you get the idea, and please feel free
+10:38 to play with this yourself. You can pause the video and just go
+10:43 ahead and run this in your own notebook on the left.
+10:46 And so, now we can ask the model to create
+10:50 a JSON summary that we could send to
+10:53 the order system based on the conversation. So, we're
+10:56 now appending another system message, which is an instruction, and we're saying,
+11:00 "Create a JSON summary of the previous food order. Itemize the
+11:04 price for each item. The fields should be 1) pizza, include side,
+11:08 2) list of toppings, 3) list of drinks, and 4) list of
+11:12 sides", and finally, the total price. And you could also use a
+11:16 user message here. This does not have to be a system message.
+11:20
+11:22 So, let's execute this.
+11:25 And notice, in this case, we're using a lower
+11:28 temperature because for these kinds of tasks, we
+11:30 want the output to be fairly predictable. For
+11:32 a conversational agent, you might want to use
+11:35 a higher temperature. However, in this case, I would maybe use a
+11:38 lower temperature as well because for a customer's assistant
+11:41 chatbot, you might want the output to be a bit more
+11:44 predictable as well.
+11:47 And so, here we have the summary of our order.
+11:51 And so, we could submit this to the order system if we wanted to.
+11:55 So there we have it, you've built your very own order chatbot. Feel
+11:59 free to kind of customise it yourself and play around with the
+12:03 system message to change the behaviour of the chatbot and kind of
+12:07 get it to act as different personas with different
+12:10 knowledge.
